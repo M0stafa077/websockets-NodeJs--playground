@@ -1,0 +1,23 @@
+services:
+    server:
+        container_name: ws-server
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        volumes:
+            - ./server:/ws-server
+            - /ws-server/node_modules
+
+    client:
+        container_name: ws-client
+        depends_on:
+            - server
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        volumes:
+            - ./client:/ws-client
+            - /ws-client/node_modules
+
+volumes:
+    server_data:
